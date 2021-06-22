@@ -151,7 +151,7 @@ void timer(int)
 
 void keys(unsigned char key, int, int)
 {
-	// если нажали клавишу от 0 до 5 - начинаем поворот на 3 градуса
+	// если нажали клавишу от 0 до 5 - начинаем поворот на +3 или -3 градуса
 	if (cuber.cube.current == -1 && key >= '1' && key <= '6')
 	{
 		if (povorot == 1) {
@@ -163,29 +163,39 @@ void keys(unsigned char key, int, int)
 		display();
 		
 	}
+	//если нажали клавишу s то сохраняем положение кубика рубика в файл
 	else if (key == 's') {
 		std::string s;
 		std::cout << "Path to file = ";
 		std::cin >> s;
 		cuber.OutputToFile(s);
 	}
+	//если нажали клавишу l меняем сторону вращения(по часовой или против)
 	else if (key == 'l') {
 		povorot = povorot * (-1);
 	}
+	//если нажали клавишу d то выводим положение кубика рубика в консоль
 	else if (key == 'd') {
 		cuber.OutputToConsole();
 	}
+	//если нажали клавишу f то задаём новую расскраску кубика рубика из файла
 	else if (key == 'f') {
 		std::string s;
 		std::cout << "Path to file = ";
 		std::cin >> s;
 		cuber.InputFromFile(s);
 	}
+	//если нажали клавишу g то задаём новую расскраску кубика рубика из консоли
 	else if (key == 'g') {
 		cuber.InputFromConsole();
 	}
+	//если нажали клавишу q то запускаем сборку кубика рубика с выводом всех поворотов в консоль
 	else if (key == 'q') {
 		cuber.solve();
+	}
+	//если нажали клавишу t то проверяется корректность кубика
+	else if (key == 't') {
+		std::cout<< (cuber.Check() ? "True" : "False");
 	}
 }
 
